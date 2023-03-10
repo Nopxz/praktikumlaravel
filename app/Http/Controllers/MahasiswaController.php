@@ -10,16 +10,12 @@ use Illuminate\Support\Facades\DB;
 class MahasiswaController extends Controller
 
 {
-    public function index(Request $request)
+    public function index()
     {
-        if($request->has('cari')){
-            $data_mahasiswa = \App\Models\Mahasiswa::where('nama','LIKE','%'. $request->cari .'%')->get();
-        }else{
-        $data_mahasiswa = \App\Models\Mahasiswa::all();
-        }
-        $data_mahasiswa = DB::table('mahasiswa')->paginate(5);
+     
+        $mahasiswa = DB::table('mahasiswa')->paginate(5);
       
-        return view('mahasiswa.index',['data_mahasiswa' => $data_mahasiswa]);
+        return view('mahasiswa.index',['mahasiswa' => $mahasiswa]);
     
     }
 
@@ -35,6 +31,20 @@ class MahasiswaController extends Controller
         $data_mahasiswa = \App\Models\Mahasiswa::find($id);
         return view('mahasiswa.edit',['mahasiswa' => $data_mahasiswa]);
 
+    }
+
+    public function cari(Request $request)
+    {
+        //menangkap data pencarian
+        $cari = $request->cari;
+
+        //mengambil data dari table pegawai sesuai pencarian data
+        $mahasiswa = DB::table('mahasiswa')
+        ->where ('nama','like',"%".$cari."%")
+        ->paginate();
+
+        //mengirim data pegawai ke view index
+        return view('mahasiswa.index',['mahasiswa' => $mahasiswa]);
     }
 
     public function update(Request $request, $id)

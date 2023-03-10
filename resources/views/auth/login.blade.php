@@ -11,6 +11,8 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                            
+                           
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -73,6 +75,14 @@
                             style="margin-left: 3em;">
                         </a>
                     </div>
+
+                    <div class="flex text-center justify-end mt-1">
+                        <a href="{{ url('auth/facebook') }}">
+                            <img src="https://scontent-sin6-2.xx.fbcdn.net/v/t39.2365-6/294967112_614766366879300_4791806768823542705_n.png?_nc_cat=105&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=KdT2moHHYd4AX9lJqdH&_nc_ht=scontent-sin6-2.xx&oh=00_AfCmZODln7pUrlQZbDLHJ2QTDfQmhVSvHf1ouhNb-vp_9w&oe=63C19E24"
+                            style="width: 250px; height: 50px; margin-left: 3em;">
+                        </a>
+                    </div>
+                    
                     
                 </div>
             </div>

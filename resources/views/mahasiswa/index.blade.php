@@ -119,6 +119,15 @@ type="submit">Search</button>
     <div class="col-4 my-4">
 <a href ="/mahasiswa/exportpdf" class="btn btn-sm btn-success">Export PDF</a>
 </div>
+            {{-- form search data --}}
+            <div class="col-4 my-4">
+                @csrf
+                <form class="d-flex" action="/mahasiswa/cari" method="GET">
+                    <input class="form-control me-2" type="text" name="cari" 
+                    placeholder="Cari data mahasiswa .." value="{{ old('cari') }}">
+                    <button class="btn btn-outline-success" type="submit">Cari</button>
+                </form>
+            </div>
             <div class="col-6 my-4" align="right">
            
                 <!-- Button trigger modal -->
@@ -127,10 +136,21 @@ type="submit">Search</button>
                     Tambah Data
                 </button>
 
+                
             </div>
 
             <div class="table-responsive">
-                <table class="table table table-hover">
+                
+            {{-- pemberitahuan jika data tidak ditemukan --}}
+        @if ($mahasiswa->count() > 0)
+        @else
+            <center>
+                <font color="red">
+                    <p>!! Tidak ditemukan data yang sesuai dengan kata kunci !!</p>
+                </font>
+            </center>
+        @endif
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -140,27 +160,27 @@ type="submit">Search</button>
                             <th>AKSI</th>
                         </tr>
                     </thead>
-                    @foreach ($data_mahasiswa as $mahasiswa)
+                    @foreach ($mahasiswa as $m)
                         <tbody>
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $mahasiswa->nama }}</td>
-                                <td>{{ $mahasiswa->nim }}</td>
-                                <td>{{ $mahasiswa->alamat }}</td>
+                                <td>{{ $m->nama }}</td>
+                                <td>{{ $m->nim }}</td>
+                                <td>{{ $m->alamat }}</td>
                                 <td>
-                                    <a href="/mahasiswa/{{$mahasiswa->id}}/edit" class = "btn btn-warning btn-sm">Edit</a>
-                                    <a href="/mahasiswa/delete/{{$mahasiswa->id}}" class="btn btn-danger bgn-sm" onclick="return confirm('Yakin Mau Dihapus?')">Delete</a>
+                                    <a href="/mahasiswa/{{$m->id}}/edit" class = "btn btn-warning btn-sm">Edit</a>
+                                    <a href="/mahasiswa/delete/{{$m->id}}" class="btn btn-danger bgn-sm" onclick="return confirm('Yakin Mau Dihapus?')">Delete</a>
                                 </td>
                                 
                         </tbody>
                     @endforeach
                 </table>
                 {{-- perhatikan script di bawah ini untuk membuat paginasi dan yang berkaitan dengan paginasi --}} 
-                Current Page: {{ $data_mahasiswa->currentPage() }}<br> 
-                Jumlah Data: {{ $data_mahasiswa->total() }}<br> 
-                Data perhalaman: {{ $data_mahasiswa->perPage() }}<br> 
+                Current Page: {{ $mahasiswa->currentPage() }}<br> 
+                Jumlah Data: {{ $mahasiswa->total() }}<br> 
+                Data perhalaman: {{ $mahasiswa->perPage() }}<br> 
                 <br> 
-                {{ $data_mahasiswa->links() }}
+                {{ $mahasiswa->links() }}
             </div>
         </div>
     </div>

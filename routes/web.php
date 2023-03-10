@@ -38,3 +38,10 @@ Route::get('/pegawai',[App\Http\Controllers\PegawaiController::class, 'index']);
 Route::get('auth/google', [App\Http\Controllers\GoogleController::class, 'redirectToGoogle']);
 
 Route::get('auth/google/callback', [App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+
+Route::get('auth/facebook', [App\Http\Controllers\FacebookController::class, 'redirectToFacebook']);
+Route::get('auth/facebook/callback', [App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
+
+Route::get('/mahasiswa/cari', [App\Http\Controllers\MahasiswaController::class, 'cari']);
+
+Route::get('/pegawai/cari', [App\Http\Controllers\PegawaiController::class, 'cari']);

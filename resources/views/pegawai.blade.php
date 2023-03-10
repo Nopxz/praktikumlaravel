@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+{{-- form search data --}}
+            <div class="col-4 my-4">
+                @csrf
+                <form class="d-flex" action="/pegawai/cari" method="GET">
+                    <input class="form-control me-2" type="text" name="cari" 
+                    placeholder="Cari data pegawai .." value="{{ old('cari') }}">
+                    <button class="btn btn-outline-success" type="submit">Cari</button>
+                </form>
+            </div>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -93,6 +104,15 @@
         <center><h1 class="my-4">Halaman Data Pegawai</h1></center>
 
         <div class="card mb-3">
+        {{-- pemberitahuan jika data tidak ditemukan --}}
+        @if ($pegawai->count() > 0)
+        @else
+            <center>
+                <font color="red">
+                    <p>!! Tidak ditemukan data yang sesuai dengan kata kunci !!</p>
+                </font>
+            </center>
+        @endif
             {{-- membuat tabel --}}
             <table class="table table-striped">
                 <thead>
